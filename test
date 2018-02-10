@@ -1,0 +1,123 @@
+@ECHO off
+
+:: This batch file will stop, then disable all needless Windows services
+:: hopefully speeding up your boot time, improving security, freeing up
+:: some system resources and stop Microsoft from spying on you.
+
+:: These services were listed in a Maximum PC article called Streamline
+:: & Optimize Windows, in their March 2018 issue (VOL 23, NO 3).
+
+:: --------Windows spying, telemetry and reporting services--------
+
+:: Service name = Connected User Experiences and Telemetry
+net stop DiagTrack
+sc config DiagTrack start= disabled
+
+:: Service name = dmwappushsvc
+net stop dmwappushservice
+sc config dmwappushservice start= disabled
+
+:: Service name = Diagnostic Execution Service
+net stop diagsvc
+sc config diagsvc start= disabled
+
+:: Service name = Diagnostic Policy Service
+net stop DPS
+sc config DPS start= disabled
+
+:: Service name = Diagnostic Service Host
+net stop WdiServiceHost
+sc config WdiServiceHost start= disabled
+
+:: Service name = Diagnostic System Host
+net stop WdiSystemHost
+sc config WdiSystemHost start= disabled
+
+:: Service name = Windows Error Reporting Service
+net stop WerSvc
+sc config WerSvc start= disabled
+
+:: Service name = Program Compatibility Assistant Service
+net stop PcaSvc
+sc config PcaSvc start= disabled
+
+
+:: --------Security--------
+
+:: Service name = Remote Registry
+:: Disable for security
+net stop RemoteRegistry
+sc config RemoteRegistry start= disabled
+
+:: Service name = Windows Defender Security Center Service
+net stop SecurityHealthService
+sc config SecurityHealthService start= disabled
+
+:: Service name = Windows Defender Advanced Threat Protection Service
+net stop Sense
+sc config Sense start= disabled
+
+:: Service name = Windows Defender Antivirus Network Inspection Service
+net stop WdNisSvc
+sc config WdNisSvc start= disabled
+
+:: Service name = Windows Defender Antivirus Service
+net stop WinDefend
+sc config WinDefend start= disabled
+
+:: Service name = Windows Defender Firewall
+net stop MpsSvc
+sc config MpsSvc start= disabled
+
+
+:: --------Network Services--------
+
+:: Service name = IP Helper
+:: Disable if you are not using IPv6
+net stop iphlpsvc
+sc config iphlpsvc start= disabled
+
+:: Service name = TCP/IP NetBIOS Helper
+:: Disable if you are not in a Windows Workgroup
+net stop lmhosts
+sc config lmhosts start= disabled
+
+:: Service name = Distributed Link Tracking Client
+:: Disable if you are not on a network at all
+net stop TrkWks
+sc config TrkWks start= disabled
+
+
+:: --------MISC--------
+
+:: Service name = Print Spooler
+:: Disable if you don't have a printer
+net stop Spooler
+sc config Spooler start= disabled
+
+:: Service name = Windows Image Acquisition (WIA)
+:: Disable if you don't have a scanner
+net stop stisvc
+sc config stisvc start= disabled
+
+:: Service name = Touch Keyboard and Handwriting Panel Service
+:: Disable if you don't have a touch screen
+net stop TabletInputService
+sc config TabletInputService start= disabled
+
+:: Service name = Bluetooth Handsfree Service
+:: Disable if you don't have Bluetooth
+net stop BthHFSrv
+sc config BthHFSrv start= disabled
+
+:: Service name = Bluetooth Support Service
+net stop bthserv
+sc config bthserv start= disabled
+
+:: Service name = Downloaded Maps Manager
+:: Disable if you will never use Microsoft Maps
+net stop MapsBroker
+sc config MapsBroker start= disabled
+
+@PAUSE
+EXIT
